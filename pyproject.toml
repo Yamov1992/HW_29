@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "djangoproject-28"
+version = "0.1.0"
+description = ""
+authors = ["Nadiabona <Nadinkotikoff@gmail.com>"]
+readme = "README.md"
+packages = [{include = "djangoproject_28"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+psycopg2 = "^2.9.5"
+djangorestframework = "^3.14.0"
+djangorestframework-simplejwt = "^5.2.2"
+pillow = "^9.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
