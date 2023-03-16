@@ -1,10 +1,10 @@
+from django.core.validators import MinLengthValidator
 from django.db import models
-
-import users
 
 
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, validators=[MinLengthValidator(5)], unique=True)
 
     class Meta:
         verbose_name = 'Категория'
@@ -13,15 +13,15 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Ads(models.Model):
-    name = models.CharField(max_length=250)
-    author_id = models.ForeignKey('users.User', null = True, on_delete=models.CASCADE) #ссылка на файл и модель
-    price = models.PositiveIntegerField()
-    description = models.TextField()
-    is_published = models.BooleanField()
-    category_id = models.ForeignKey(Category, null = True, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="ads/", null=True, blank=True)
 
+class Ads(models.Model):
+    name = models.CharField(max_length=250, validators=[MinLengthValidator(10)])
+    author_id = models.ForeignKey('users.User', null=True, on_delete=models.CASCADE) #ссылка на файл и модель
+    price = models.PositiveIntegerField()
+    description = models.TextField(null=True, blank=True)
+    is_published = models.BooleanField(default=False)
+    category_id = models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="ads/", null=True, blank=True)
 
     class Meta:
         verbose_name = "Объявление"
@@ -29,6 +29,7 @@ class Ads(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Selection(models.Model):
     name = models.CharField(max_length=250)
@@ -41,5 +42,3 @@ class Selection(models.Model):
 
     def __str__(self):
         return self.name
-
-

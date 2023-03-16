@@ -4,7 +4,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
-from ads.models import Ads
+
 from djangoProject_27.serializers import UserSerializer, UserListSerializer, UserDetailSerializer, LocationSerializer, \
     UserCreateSerializer
 from users.models import User, Location
@@ -19,14 +19,17 @@ class UserCreateView(CreateAPIView):
     serializer_class = UserCreateSerializer
     queryset = User.objects.all()
 
+
 class UserDetailView(RetrieveAPIView):
     serializer_class = UserDetailSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
 
+
 class UserDeleteView(DestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
 
 class UserListView(ListAPIView):
     serializer_class = UserListSerializer
@@ -34,9 +37,11 @@ class UserListView(ListAPIView):
     #queryset = User.objects.all().order_by("username") - это для худшегь варианта подсчета исла заявлений
     pagination_class = UserPagination
 
+
 class UserUpdateView(UpdateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
 
 class LocationViewSet(ModelViewSet):
     serializer_class = LocationSerializer
